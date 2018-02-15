@@ -13,12 +13,6 @@ cache:
     
 script: "./gradlew clean build"
 
-# CI 실행 완료시 메일로 알람
-notifications:
-  email:
-    recipients:
-      - hue9010@gmail.com
-      
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
@@ -31,5 +25,25 @@ deploy:
     on:
      repo: Hue9010/java-trello
      branch: hue-step-04-ci
+
+deploy:
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: trello-deploy # 6-3-3에서 생성한 S3 버킷
+    key: trello.zip # 빌드 파일을 압축해서 전달
+    bundle-type: zip
+    application: trello # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: trello-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2 
+    wait-until-deployed: true 
+    on:
+     repo: Hue9010/java-trello
+     branch: hue-step-04-ci
       
-# push용 내용 추가
+# CI 실행 완료시 메일로 알람
+notifications:
+  email:
+    recipients:
+      - hue9010@gmail.com
+      
