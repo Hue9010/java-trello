@@ -14,9 +14,9 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy: 
-  - zip -r springboot-webservice * 
+  - zip -r trello * 
   - mkdir -p deploy 
-  - mv springboot-webservice.zip deploy/springboot-webservice.zip
+  - mv trello.zip deploy/trello.zip
 
 deploy:
   - provider: s3
@@ -26,6 +26,7 @@ deploy:
     region: ap-northeast-2 
     skip_cleanup: true 
     acl: public_read 
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true 
     on:
      repo: Hue9010/java-trello
