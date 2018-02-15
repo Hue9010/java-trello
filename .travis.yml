@@ -29,5 +29,5 @@ deploy:
     acl: public_read 
     wait-until-deployed: true 
     on:
-     repo: https://github.com/Hue9010/java-trello
+     repo: Hue9010/java-trello
       
