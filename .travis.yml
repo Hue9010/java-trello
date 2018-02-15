@@ -30,5 +30,6 @@ deploy:
     wait-until-deployed: true 
     on:
      repo: Hue9010/java-trello
+     branch: hue-step-04-ci
       
 # push용 내용 추가
